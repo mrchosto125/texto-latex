@@ -1,0 +1,145 @@
+%-------------------------------------------------------
+%--- Lab Report Template --- Prof. Benito Granados-Rojas 
+%-------------------------------------------------------
+%--------------------- DOCUMENT STYLE & USEFUL LIBRARIES
+\documentclass[12pt, twoside]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{graphicx, subfigure, wrapfig, float}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{caption, multicol, multirow, longtable}
+\usepackage{url, cclicenses, lastpage, color, booktabs}
+\usepackage{graphicx,lipsum,wrapfig}
+\usepackage{fancyhdr, fancybox}
+\usepackage{array} 
+\usepackage{vmargin}
+\usepackage{xcolor}
+\usepackage{inconsolata}
+\definecolor{td}{RGB}{170,0,0}
+\renewcommand\rmdefault{lmr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{Universidad La Salle México}
+\fancyhead[RE]{Ing. Cibernética y Sist. Computacionales}
+\fancyhead[RO]{Hernandez Millan Edgar}
+\fancyhead[LO]{CIB-500} 
+\cfoot{\thepage}
+%-------------------------------------------------------------------------   
+\begin{document}
+\begin{center}
+   {\huge Microcontroladores --} {\huge Examen 1} 
+\end{center}
+
+\section{Set de Instrucciones [20 puntos]}
+Describa \textbf{detalladamente} la función que realizan y alguna utilidad práctica de los siguientes segmentos de código ensamblador.
+
+\begin{center}
+    \begin{tabular}{|l|}
+    \hline
+    a) \\ \texttt{MOVLW 0x07} \\  \texttt{MOVWF CMCON} \\
+    \hline
+    Movemos el hexadecimal a W\\
+    Movemos W a la variable CMCON\\
+    Utilidad:Declarar un espacio en la memoria
+    \\
+    \hline
+    b) \\ \texttt{MOVLW 0xFF} \\  \texttt{XORWF P,0} \\
+    \hline
+    Movemos el hexadecimal a W\\
+    XOR en el contenido del acumulador del registro P y lo colocara en 0\\
+    Utilidad : Se puede usar para encender un LED
+    \\
+    \hline
+    c) \\ \texttt{MOVLW 0xFF} \\ \texttt{COMF Q,1} \\  \texttt{INC F Q,1} \\
+    \hline
+    Movemos el hexadecimal a W\\
+    Complemetamos el contenido de q y el resultado lo manda a 1\\
+    Incrementa a Q y el resultado lo manda a 1\\
+    Utilidad:Jugos de azar
+    \\
+    \hline
+    d) \\ \texttt{BCF STATUS, RP1} \\ \texttt{BSF STATUS, RP0} \\ \texttt{MOVLW b'11110000'} \\ \texttt{MOVWF TRISB} \\ \texttt{BCF STATUS, RP0} \\ \texttt{GOTO INICIO} \\ 
+    \hline
+    Pone en 0 al RPI de Status\\
+    Pone en 1 al RP0 de Status\\
+    Coloca un binario en W\\
+    Mueve lo de W al registro TRISB\\
+    Pone en 0 al RP0 de Staus\\
+    Regresamos a INICIO\\
+    Utilidad:Se colocan las puertas de salida de b en 4 bits
+    \\
+    \hline
+    e) \\ \texttt{INICIO:} \\ \texttt{MOVLW d'60'} \\ \texttt{MOVWF k} \\ \texttt{KLOOP:} \\ \texttt{DECFSZ k,F} \\ \texttt{GOTO KLOOP} \\  
+    \hline
+    Declaramos la etiqueta INICIO\\
+    Movemos un decimal a W\\
+    Pasamos lo de W a la variable k\\
+    Declaramos la etiqueta KLOOP\\
+    Decrementa lo que hay en k y lo coloca en F\\
+    Regresamos a la parte inicial de la etiqueta KLOOP\\
+    Utilidades:Crear un intervalo de tiempo
+    \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Rutinas de tiempo [10 puntos]}
+Determine cuánto tiempo tomaría la ejecución conjunta en un dispositivo PIC16F628A de la rutinas (d) y (e) del ejercicio anterior, cuando se utiliza como reloj:
+
+\begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    a) El oscilador interno &  2.225ms
+    \\
+    \hline
+    b) Un resonador de 455 kHz & 19.56044ms 
+    \\
+    \hline
+    c) Un cristal externo de 16 MHz & 556.25µs
+    \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\section{Ejercicio [15 puntos]}
+Realice un programa en lenguaje ensamblador PIC que ejecute el encendido y apagado de un LED en el puerto RB0. La duración de los estados On y Off debe ser \textbf{aproximadamente 1 segundo} cada uno mientras se mantenga presionado un PUSH BUTTON en el puerto RB1 y \textbf{aproximadamente 500 ms} en caso contrario.  
+    
+Instrucciones clave: \textbf{BTFSC, BTFSS, CALL, RETURN}
+\\
+\\
+\textbf{Github\xrightarrow[]{}https://github.com/mrchosto125/ejercicio3examen1}
+
+\section{Ejercicio [20 puntos]}
+
+Realice un programa en lenguaje ensamblador PIC que ejecute el encendido y apagado de un LED en el puerto RB0. El periodo de oscilación debe ser \textbf{exactamente 1 segundo} y la razón (tiempo en alto)/(tiempo en bajo) debe ser aproximadamente igual a la razón (número de letras de nombres)/(número de letras de apellidos). 
+
+%CAMBIAR EJEMPLO POR DATOS PROPIOS
+%CAMBIAR EJEMPLO POR DATOS PROPIOS
+%CAMBIAR EJEMPLO POR DATOS PROPIOS
+%CAMBIAR EJEMPLO POR DATOS PROPIOS
+%CAMBIAR EJEMPLO POR DATOS PROPIOS
+
+Ejemplo: 
+    \begin{equation}
+        \frac{Edgar}{Hernandez} = \frac{5}{9} = 0.55
+    \end{equation}
+    \begin{equation}
+        T_{alto} = \frac{5}{14} = 357.14 = 357 ms
+    \end{equation}
+    \begin{equation}
+        T_{bajo} = \frac{9}{14} = 642.85 = 643 ms
+    \end{equation}
+
+
+Redondear a un número entero de milisegundos. 
+Si la relación nombres/apellidos es igual a 1, sumar +1 a los apellidos. Para ambos ejercicios añadir capturas de pantalla y enlace a un repositorio de GitHub con los códigos de lenguaje ensamblador.
+\\
+\\
+\\
+\textbf{Github\xrightarrow[]{}https://github.com/mrchosto125/ejercicio4examen1}
+
+\\Texto del LateX \xrightarrow[]{}https://github.com/mrchosto125/texto-latex
+
+\end{document}
+
